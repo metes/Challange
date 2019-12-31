@@ -36,11 +36,13 @@
 
 
     <style name="TextView.Base" parent="TextAppearance.AppCompat.Small">
-        <item name="android:textColor">@color/colorWhite_80</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/material_black_70</item>
     </style>
 
     <style name="TextView.Base.Large" parent="TextAppearance.AppCompat.Large">
-        <item name="android:textColor">@color/colorWhite_80</item>
+        <item name="android:textColor">@color/material_black_80</item>
     </style>
 
     <style name="Button.RedBoreder" parent="Button.Red">
@@ -59,6 +61,32 @@
         <item name="android:textColor">@color/colorWhite_80</item>
         <item name="android:textColorHint">@color/colorWhite_50</item>
     </style>
+
+
+
+    <style name="CardView.Base" parent="CardView">
+        <item name="android:layout_width">@dimen/custom_match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/space_small</item>
+        <item name="android:layout_marginEnd">@dimen/space_small</item>
+        <item name="cardCornerRadius">@dimen/space_med_small</item>
+        <item name="cardElevation">@dimen/space_small_1</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+
+    <style name="ImageButton.Item" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">@dimen/space_large_1</item>
+        <item name="android:layout_height">@dimen/space_large_1</item>
+        <item name="android:layout_marginStart">@dimen/space_med</item>
+        <item name="android:layout_marginEnd">@dimen/space_med</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:scaleType">fitCenter</item>
+
+
+    </style>
+
+
 
 
 </resources>

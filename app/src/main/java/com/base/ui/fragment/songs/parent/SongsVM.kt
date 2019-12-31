@@ -1,4 +1,4 @@
-package com.base.ui.fragment.login
+package com.base.ui.fragment.songs.parent
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,7 @@ import com.base.model.retrofit.request.LoginRequest
 import com.base.model.retrofit.response._loginAuth.LoginResponse
 import com.base.network.APIClient
 
-class LoginVM(app: Application, client: APIClient) : BaseViewModel(app, client) {
+class SongsVM(app: Application, client: APIClient) : BaseViewModel(app, client) {
 
     val loginLiveData = MutableLiveData<LoginResponse>()
 

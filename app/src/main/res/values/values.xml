@@ -9,4 +9,8 @@
     <dimen name="space_large_3">56dp</dimen>
     <dimen name="space_large_4">64dp</dimen>
     <dimen name="space_large_5">72dp</dimen>
+
+    <item name="custom_match_parent" type="dimen">-1</item>
+    <item name="custom_wrap_content" type="dimen">-2</item>
+
 </resources>

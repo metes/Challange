@@ -22,6 +22,7 @@
     <color name="colorLoginBg">#8000375f</color>
     <color name="colorOrange">#fbb724</color>
     <color name="colotAppBlue">#043a62</color>
+    <color name="itemIconColor">@color/material_grey_700</color>
 
     <color name="ic_launcher_background">#FFFFFF</color>
 </resources>

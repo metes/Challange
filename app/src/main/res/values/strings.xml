@@ -47,6 +47,8 @@
     <string name="vazgec">give up</string>
     <string name="tamam">OK</string>
     <string name="iptal">Cancel</string>
+    <string name="kutuphane">Kütüphane</string>
+    <string name="favoriler">Favoriler</string>
 
     <string-array name="months">
         <item>@string/ocak</item>
