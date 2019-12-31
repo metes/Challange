@@ -50,33 +50,11 @@ object AnimUtils {
         return fadeIn
     }
 
-    fun startSpringResize(view: View?, functionOnFinish: () -> Unit) {
+    fun startSpringResize(view: View?) {
         view?.let {
-            val fadeAnimation = getFadeInAnimation(1000L)
-            fadeAnimation.setAnimationListener(object : DynamicAnimation.OnAnimationEndListener,
-                Animation.AnimationListener {
-                override fun onAnimationEnd(p0: Animation?) {
-                    functionOnFinish()
-                }
-
-                override fun onAnimationRepeat(p0: Animation?) {
-                }
-
-                override fun onAnimationStart(p0: Animation?) {
-                }
-
-                override fun onAnimationEnd(
-                    animation: DynamicAnimation<out DynamicAnimation<*>>?,
-                    canceled: Boolean,
-                    value: Float,
-                    velocity: Float
-                ) {
-                }
-
-            })
-            view.startAnimation(fadeAnimation)
-            getSpringAnimation(it, SpringAnimation.SCALE_X, 1.8f).start()
-            getSpringAnimation(it, SpringAnimation.SCALE_Y, 1.8f).start()
+            it.startAnimation(getFadeInAnimation(300L))
+            getSpringAnimation(it, SpringAnimation.SCALE_X, 2.8f).start()
+            getSpringAnimation(it, SpringAnimation.SCALE_Y, 2.8f).start()
         }
     }
 
@@ -90,7 +68,7 @@ object AnimUtils {
         val spring = SpringForce()
         spring.finalPosition = finalPosition
         spring.stiffness = SpringForce.STIFFNESS_VERY_LOW // optional
-        spring.dampingRatio = SpringForce.DAMPING_RATIO_NO_BOUNCY // optional
+        spring.dampingRatio = SpringForce.DAMPING_RATIO_LOW_BOUNCY // optional
         // set your animation's spring
         animation.spring = spring
         return animation

@@ -1,15 +1,20 @@
 package com.base.commons
 
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
 import com.base.commons.AnimUtils.startFadeInAnimation
 import com.base.commons.AnimUtils.startFadeOutAnimation
 import com.base.commons.AnimUtils.startSpringResize
-import kotlin.reflect.KClass
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-fun ImageView.splashAnimation(functionOnFinish: () -> Unit) {
-    startSpringResize(this, functionOnFinish)
+fun View.splashAnimation(functionOnFinish: () -> Unit) {
+    CoroutineScope(Dispatchers.Main).launch {
+        startSpringResize(this@splashAnimation)
+        delay(2000)
+        functionOnFinish()
+    }
 }
 
 

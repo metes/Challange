@@ -13,15 +13,7 @@ class MyApplication : Application() {
         super.onCreate()
         insertKoin()
         initStetho()
-//        initOneSignal()
     }
-
-//    private fun initOneSignal() {
-//        OneSignal.startInit(this)
-//            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-//            .unsubscribeWhenNotificationsAreDisabled(true)
-//            .init()
-//    }
 
     private fun initStetho() {
         if (BuildConfig.DEBUG) {
@@ -36,11 +28,8 @@ class MyApplication : Application() {
             modules(
                 listOf(
                     Modules.mainActivityViewModelModule,
-                    Modules.loginViewModelModule,
-                    Modules.forgotPassModelModule,
-                    Modules.renewPassViewModule,
-                    Modules.webViewModule,
-                    Modules.smsViewModule
+                    Modules.songsViewModelModule,
+                    Modules.splashViewModelModule
                 )
             )
         }

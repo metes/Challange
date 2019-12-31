@@ -21,14 +21,8 @@ object Modules {
     val songsViewModelModule = module {
         viewModel { SongsVM(get(), get()) }
     }
-    val renewPassViewModule = module {
-        viewModel { RenewPassVM(get(), get()) }
-    }
-    val webViewModule = module {
-        viewModel { WebViewVM(get(), get()) }
-    }
-    val smsViewModule = module {
-        viewModel { SMSCodeVM(get(), get()) }
+    val splashViewModelModule = module {
+        viewModel { SplashVM(get(), get()) }
     }
 
 
