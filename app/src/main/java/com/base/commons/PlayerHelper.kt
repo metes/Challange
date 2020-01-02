@@ -7,6 +7,7 @@ import android.net.Uri
 class PlayerHelper {
 
     private var mediaPlayer: MediaPlayer? = null
+    private var floatValue = 100f
 
     @Throws(Exception::class)
     fun playAudio(context: Context?, url: String?, onPlayCompleted: () -> Unit) {
@@ -18,6 +19,11 @@ class PlayerHelper {
             onPlayCompleted()
         }
         mediaPlayer?.start()
+    }
+
+    fun setVolume(volume: Int) {
+        floatValue = (volume.toFloat() / 100)
+        mediaPlayer?.setVolume(floatValue, floatValue)
     }
 
     fun killMediaPlayer() {

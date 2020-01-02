@@ -10,7 +10,7 @@ import com.base.base.BaseActivity
 import com.base.base.BaseViewModel
 import com.base.commons.AnimUtils.startFadeInAnimation
 import com.base.commons.AnimUtils.startFadeOutAnimation
-import com.base.commons.visibileIf
+import com.base.commons.visibleIf
 import com.base.databinding.ActivityMainBinding
 import org.koin.android.ext.android.inject
 
@@ -52,7 +52,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, BaseViewModel>() {
     }
 
     fun toolbarVisibility(visible: Boolean) {
-        binding.toolbar.visibileIf(visible)
+        binding.toolbar.visibleIf(visible)
     }
 
     fun showHideProgress(isShowing: Boolean) {

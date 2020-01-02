@@ -11,13 +11,10 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashVM>() {
     override val layoutId: Int = R.layout.fragment_splash
     override val viewModel: SplashVM by viewModel()
 
-
     override fun prepareViews() {
         changeToolbarVisibility()
         binding.imageViewLogo.splashAnimation(::onLogoAnimationEnd)
     }
-
-    override fun initHandler() { }
 
     /**
      *  Animasyon bitiminde calistirilacak

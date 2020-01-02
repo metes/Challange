@@ -3,7 +3,7 @@ package com.base.commons
 import android.content.Context
 import android.content.SharedPreferences
 import com.base.commons.Constants.favorites
-import com.base.model.local.SongListWraper
+import com.base.model.local.SongListWrapper
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -14,43 +14,14 @@ class SharedPrefHelper(private val context: Context) {
         context.getSharedPreferences("reasonkey", Context.MODE_PRIVATE)
     }
 
-    fun loadFavorites(): List<SongListWraper> {
-        val type = object : TypeToken<List<SongListWraper>>() {}
+    fun loadFavorites(): List<SongListWrapper> {
+        val type = object : TypeToken<List<SongListWrapper>>() {}
         return retrieveListData(favorites, type)?: listOf()
     }
 
-    fun saveFavorites(newList: List<SongListWraper>) {
+    fun saveFavorites(newList: List<SongListWrapper>) {
         addListData(favorites, newList)
     }
-
-//    private fun <T> saveList(reasonkey: String, `object`: List<T>) {
-//        val mPrefs = context.getSharedPreferences(reasonkey, Context.MODE_PRIVATE)
-//        val prefsEditor = mPrefs.edit()
-//        val json = Gson().toJson(`object`)
-//        prefsEditor.putString("myJson", json)
-//        prefsEditor.apply()
-//    }
-//
-//    private fun <T> loadList(reasonKey: String): List<T> {
-//        val mPrefs = context.getSharedPreferences(reasonKey, Context.MODE_PRIVATE)
-//        val json = mPrefs.getString("myJson", "")
-//        return if (json.isNullOrEmpty()) {
-//            ArrayList()
-//        } else {
-//            try {
-//                val type = object : TypeToken<List<T>>() {  }.type
-//                Gson().fromJson<List<T>>(json, type)
-//            } catch (jsonException: JsonSyntaxException) {
-//                // Model formati degisti ise
-//                @SuppressLint("CommitPrefEdits")
-//                val editor = context.getSharedPreferences(reasonKey, Context.MODE_PRIVATE).edit()
-//                editor.clear()
-//                ArrayList<T>()
-//            }
-//
-//        }
-//    }
-
 
     /**
      * Helps save String data

@@ -18,18 +18,11 @@ fun View.splashAnimation(functionOnFinish: () -> Unit) {
 }
 
 
-fun View.visibileIf(showing: Boolean) {
+fun View.visibleIf(showing: Boolean) {
     if (showing) {
         startFadeInAnimation(this, 300L)
     } else {
         startFadeOutAnimation(this, 300L)
-    }
-}
-
-fun <T> ArrayList<T>?.replaceData(newList: List<T>) {
-    this?.let {
-        clear()
-        addAll(newList)
     }
 }
 

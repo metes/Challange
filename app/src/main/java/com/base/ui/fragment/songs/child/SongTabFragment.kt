@@ -9,29 +9,31 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.base.R
 import com.base.base.BaseFragment
 import com.base.databinding.FragmentSongChildBinding
-import com.base.model.local.SongListWraper
+import com.base.model.local.SongListWrapper
 import com.base.ui.fragment.songs.parent.SongsVM
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class SongTabFragment(
-    private val itemList: LiveData<ArrayList<SongListWraper>>) : BaseFragment<FragmentSongChildBinding, SongsVM>() {
+    private val itemList: LiveData<ArrayList<SongListWrapper>>
+) : BaseFragment<FragmentSongChildBinding, SongsVM>() {
 
     override val layoutId: Int = R.layout.fragment_song_child
     override val viewModel: SongsVM by sharedViewModel()
 
-    private var songAdapter: SongAdapter<SongListWraper>? = null
+    private var songAdapter: SongAdapter<SongListWrapper>? = null
 
-    override fun prepareViews() { }
+    override fun prepareViews() {}
 
     override fun subscribe() {
         itemList.observe(viewLifecycleOwner, Observer {
-            prepareRecyclerView(it)
+            prepareRecyclerView()
         })
     }
 
-    private fun prepareRecyclerView(list: ArrayList<SongListWraper>) {
-        songAdapter = SongAdapter(itemList.value!!, ::onPlayClicked, ::onFavoritesClicked)
+    private fun prepareRecyclerView() {
+        songAdapter =
+            SongAdapter(itemList.value!!, ::onPlayClicked, ::onFavoritesClicked, ::onSeekBarChanged)
         binding.recyclerViewSongs.apply {
             viewTreeObserver.addOnPreDrawListener {
                 startPostponedEnterTransition()
@@ -43,7 +45,15 @@ class SongTabFragment(
         }
     }
 
-    private fun onPlayClicked(item: SongListWraper?, button: View?) {
+    private fun onSeekBarChanged(item: SongListWrapper?, progress: Int) {
+        item?.let {
+            if (item.isPlaying == true) {
+                viewModel.volumeChange(item, progress)
+            }
+        }
+    }
+
+    private fun onPlayClicked(item: SongListWrapper?, button: View?) {
         item?.let {
             if (item.isPlaying == true) {
                 viewModel.stopAudio(item)
@@ -54,23 +64,20 @@ class SongTabFragment(
         }
     }
 
-    private fun onFavoritesClicked(item: SongListWraper?) {
+    private fun onFavoritesClicked(item: SongListWrapper?) {
         item?.let {
             viewModel.updateFavorites(it)
             songAdapter?.notifyDataSetChanged()
         }
     }
 
-    private fun changePlayPauseIcon(item: SongListWraper, button: View?) {
+    private fun changePlayPauseIcon(item: SongListWrapper, button: View?) {
         item.isPlaying = item.isPlaying != true
         val iconResId =
             if (item.isPlaying == true) R.drawable.ic_pause_black_24dp else R.drawable.ic_play_arrow_black_24dp
 
         (button as AppCompatImageButton).setImageResource(iconResId)
     }
-
-
-
 
 
 }

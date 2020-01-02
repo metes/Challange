@@ -1,14 +1,14 @@
 package com.base.ui.fragment.songs.parent
 
-import android.annotation.SuppressLint
 import android.app.Application
+import android.util.SparseArray
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.base.base.BaseViewModel
 import com.base.commons.PlayerHelper
 import com.base.commons.SharedPrefHelper
-import com.base.model.local.SongListWraper
+import com.base.model.local.SongListWrapper
 import com.base.model.retrofit.response.songListResponse.SongListResponse
 import com.base.network.APIClient
 import org.koin.core.KoinComponent
@@ -17,12 +17,13 @@ import org.koin.core.inject
 class SongsVM(private val app: Application, private val client: APIClient) :
     BaseViewModel(app, client), KoinComponent {
 
-    @SuppressLint("UseSparseArrays")
-    var mediaPlayerMap = HashMap<Int, PlayerHelper>()
+    // Her bir ses dosyasi icin map tutulıyor
+    var mediaPlayerMap = SparseArray<PlayerHelper>()
 
-    var allSongsLD: LiveData<ArrayList<SongListWraper>> = MutableLiveData()
-    var favoritesSongsLD: LiveData<ArrayList<SongListWraper>> = MutableLiveData()
+    var allSongsLD: LiveData<ArrayList<SongListWrapper>> = MutableLiveData()
+    var favoritesSongsLD: LiveData<ArrayList<SongListWrapper>> = MutableLiveData()
 
+    // Sonraki oturumlarda hatirlanmasi icin degisiklikler disk'e kaydediliyor
     private val sharedPrefHelper: SharedPrefHelper by inject()
 
     init {
@@ -40,12 +41,12 @@ class SongsVM(private val app: Application, private val client: APIClient) :
 
     private fun generateAllSongLD(songList: List<SongListResponse>?) {
         val savedFavoriteSongs = sharedPrefHelper.loadFavorites()
-        val allSongs = ArrayList<SongListWraper>()
-        val favoritesSongs = ArrayList<SongListWraper>()
+        val allSongs = ArrayList<SongListWrapper>()
+        val favoritesSongs = ArrayList<SongListWrapper>()
         songList?.forEach { song ->
             val isFavorite =
                 savedFavoriteSongs.firstOrNull { it.songListResponse.id == song.id }?.isFavorite ?: false
-            val wrappedSong = SongListWraper(song, isFavorite)
+            val wrappedSong = SongListWrapper(song, isFavorite)
             allSongs.add(wrappedSong)
             if (isFavorite) {
                 favoritesSongs.add(wrappedSong)
@@ -55,14 +56,14 @@ class SongsVM(private val app: Application, private val client: APIClient) :
         (favoritesSongsLD as? MutableLiveData)?.postValue(favoritesSongs)
     }
 
-    fun updateFavorites(item: SongListWraper) {
+    fun updateFavorites(item: SongListWrapper) {
         item.changeFavoriteState()
         updateFavoritesList(item)
         updateAllSongsList()
     }
 
     private fun updateAllSongsList() {
-        ArrayList<SongListWraper>().apply {
+        ArrayList<SongListWrapper>().apply {
             addAll(allSongsLD.value?: listOf())
             allSongsLD.value?.forEach { item ->
                 item.isFavorite = sharedPrefHelper.loadFavorites()
@@ -72,12 +73,12 @@ class SongsVM(private val app: Application, private val client: APIClient) :
         }
     }
 
-    private fun updateFavoritesList(item: SongListWraper) {
+    private fun updateFavoritesList(item: SongListWrapper) {
         val isAlreadyFavorite =
             sharedPrefHelper.loadFavorites()
                 .any { it.songListResponse.id == item.songListResponse.id }
 
-        val updatedFavoriteList = ArrayList<SongListWraper>()
+        val updatedFavoriteList = ArrayList<SongListWrapper>()
         if (isAlreadyFavorite) {
             updatedFavoriteList.addAll(sharedPrefHelper.loadFavorites().filter { it.songListResponse.id != item.songListResponse.id })
         } else {
@@ -88,25 +89,32 @@ class SongsVM(private val app: Application, private val client: APIClient) :
         (favoritesSongsLD as? MutableLiveData)?.postValue(updatedFavoriteList)
     }
 
-    fun stopAudio(item: SongListWraper) {
+    fun volumeChange(item: SongListWrapper, progress: Int) {
+        val itemId = item.songListResponse.id
+        mediaPlayerMap[itemId]?.setVolume(progress)
+    }
+
+    fun stopAudio(item: SongListWrapper) {
         val itemId = item.songListResponse.id
         mediaPlayerMap[itemId]?.killMediaPlayer()
     }
 
     fun playAudio(
-        item: SongListWraper,
+        item: SongListWrapper,
         button: View?,
         function: (View?) -> Unit
     ) {
         val itemId = item.songListResponse.id
         if (mediaPlayerMap[itemId] == null) {
             val mPlayer = PlayerHelper()
-            mediaPlayerMap[itemId] = mPlayer
+            mediaPlayerMap.put(itemId, mPlayer)
         }
         mediaPlayerMap[itemId]?.playAudio(app, item.songListResponse.fileAddress) {
             function(button)
         }
     }
+
+
 }
 
 
