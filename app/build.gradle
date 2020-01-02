@@ -21,9 +21,7 @@ android {
 //                // Project number pulled from dashboard, local value is ignored.
 //                onesignal_google_project_number: 'REMOTE'
 //        ]
-        buildConfigField "String", "API_URL", "\"http://\""
-        buildConfigField "String", "WEBVIEW_STARTUP_URL", "\"https://=\""
-        buildConfigField "String", "WEBVIEW_SIGNUP_URL", "\"https://\""
+        buildConfigField "String", "API_URL", "\"https://api.myjson.com/\""
     }
     buildTypes {
         release {

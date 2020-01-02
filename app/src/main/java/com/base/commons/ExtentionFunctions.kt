@@ -26,3 +26,15 @@ fun View.visibileIf(showing: Boolean) {
     }
 }
 
+fun <T> ArrayList<T>?.replaceData(newList: List<T>) {
+    this?.let {
+        clear()
+        addAll(newList)
+    }
+}
+
+fun <E> Collection<E>.toArrayList(): ArrayList<E> {
+    return ArrayList<E>().apply {
+        addAll(this)
+    }
+}

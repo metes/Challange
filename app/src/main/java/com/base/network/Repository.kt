@@ -1,7 +1,6 @@
 package com.base.network
 
 import com.base.model.retrofit.response.GenericResponse
-import com.base.model.retrofit.response._loginAuth.LoginResponse
 import com.google.gson.Gson
 import retrofit2.HttpException
 import java.io.IOException
@@ -9,10 +8,6 @@ import java.io.IOException
 object Repository {
 
     suspend fun <T> genericRepository(client: suspend () -> GenericResponse<T>): Result<GenericResponse<T>> {
-        return handleRequest { client.invoke() }
-    }
-
-    suspend fun loginRepository(client: suspend () -> LoginResponse): Result<LoginResponse> {
         return handleRequest { client.invoke() }
     }
 
@@ -27,7 +22,7 @@ object Repository {
                 Result.failure(Throwable(errorMessage))
             }
         } catch (e: Exception) {
-            Result.failure(Throwable(""))
+            Result.failure(Throwable(e.message))
         }
     }
 
@@ -37,9 +32,12 @@ object Repository {
             val body = httpException.response()?.errorBody()
             val adapter = Gson().getAdapter(GenericResponse::class.java)
             val errorParser = adapter.fromJson(body?.string())
-            errorMessage = errorParser.errorMessage?.get(0)
+            errorMessage = errorParser.errorMessage
         } catch (e: IOException) {
             e.printStackTrace()
+            if (errorMessage.isNullOrBlank()) {
+                errorMessage = e.message
+            }
         } finally {
             return errorMessage
         }

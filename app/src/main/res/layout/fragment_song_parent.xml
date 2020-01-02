@@ -12,11 +12,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            app:tabIndicatorColor="@color/colorAccent"
+            app:tabIndicatorColor="@color/colorWhite"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabSelectedTextColor="@color/colorWhite"
             app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-            app:tabTextColor="#E0E0E0" />
+            app:tabTextColor="@color/material_grey_300" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPagerBlogs"

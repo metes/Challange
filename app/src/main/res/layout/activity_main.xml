@@ -36,10 +36,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
-            android:elevation="@dimen/space_med"
+            android:elevation="@dimen/space_small_1"
             android:minHeight="?attr/actionBarSize"
-            app:layout_constraintTop_toTopOf="parent"
-            app:theme="@style/AppTheme">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/toolbar_title"

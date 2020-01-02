@@ -44,6 +44,8 @@
     <string name="vazgec">Vazgeç</string>
     <string name="tamam">Tamam</string>
     <string name="iptal">İptal</string>
+    <string name="kutuphane">Kütüphane</string>
+    <string name="favoriler">Favoriler</string>
 
 
 </resources>
