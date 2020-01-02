@@ -68,7 +68,6 @@ class SongsVM(private val app: Application, private val client: APIClient) :
                 item.isFavorite = sharedPrefHelper.loadFavorites()
                     .any { it.songListResponse.id == item.songListResponse.id }
             }
-
             (allSongsLD as MutableLiveData).postValue(this)
         }
     }

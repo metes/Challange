@@ -4,11 +4,12 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowTranslucentStatus">true</item>
     </style>
-<!--    <item name="android:windowBackground">@drawable/ic_background_splash</item>-->
+<!--    <item name="android:windowTranslucentStatus">true</item>-->
+
+    <!--    <item name="android:windowBackground">@drawable/ic_background_splash</item>-->
 
 
     <style name="LoginInputs" parent="Widget.AppCompat.EditText">
@@ -41,8 +42,9 @@
         <item name="android:textColor">@color/material_black_70</item>
     </style>
 
-    <style name="TextView.Base.Large" parent="TextAppearance.AppCompat.Large">
+    <style name="TextView.Base.Large" parent="TextView.Base">
         <item name="android:textColor">@color/material_black_80</item>
+        <item name="android:textSize">19sp</item>
     </style>
 
     <style name="Button.RedBoreder" parent="Button.Red">
@@ -81,6 +83,7 @@
         <item name="android:layout_marginStart">@dimen/space_med</item>
         <item name="android:layout_marginEnd">@dimen/space_med</item>
         <item name="android:background">@android:color/transparent</item>
+        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
         <item name="android:scaleType">fitCenter</item>
 
 
