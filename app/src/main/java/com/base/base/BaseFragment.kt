@@ -39,10 +39,7 @@ abstract class BaseFragment<BindingType : ViewDataBinding, out ViewModelType: Ba
      *  Fragment'a ozel view duzenlemeleri burada yapiliyor
      */
     abstract fun prepareViews()
-    /**
-     *  XML icerisindeki degiskenin tanimlanmasi
-     */
-    abstract fun initHandler()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
@@ -71,6 +68,13 @@ abstract class BaseFragment<BindingType : ViewDataBinding, out ViewModelType: Ba
 
     open fun setOnBackPressed(onBackAlternative: (() -> Unit)?) {
         (activity as BaseActivity<*, *>).onBackPressAlternative = onBackAlternative
+    }
+
+    /**
+     *  XML icerisindeki degiskenin tanimlanmasi
+     */
+    open fun initHandler() {
+        timber("Not have a handler added")
     }
 
     private fun subscribeErrors() {
