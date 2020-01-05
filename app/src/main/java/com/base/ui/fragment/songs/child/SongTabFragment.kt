@@ -2,7 +2,6 @@ package com.base.ui.fragment.songs.child
 
 import android.view.View
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,26 +13,27 @@ import com.base.ui.fragment.songs.parent.SongsVM
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
-class SongTabFragment(
-    private val itemList: LiveData<ArrayList<SongListWrapper>>
-) : BaseFragment<FragmentSongChildBinding, SongsVM>() {
+class SongTabFragment(private val isFavorite: Boolean) : BaseFragment<FragmentSongChildBinding, SongsVM>() {
 
     override val layoutId: Int = R.layout.fragment_song_child
     override val viewModel: SongsVM by sharedViewModel()
 
     private var songAdapter: SongAdapter<SongListWrapper>? = null
 
-    override fun prepareViews() {}
+    override fun prepareViews() {
+        prepareRecyclerView()
+    }
 
     override fun subscribe() {
-        itemList.observe(viewLifecycleOwner, Observer {
-            prepareRecyclerView()
+        val liveData = if (isFavorite) viewModel.favoritesSongsLD else viewModel.allSongsLD
+        liveData?.observe(viewLifecycleOwner, Observer {
+            songAdapter?.notifyDataSetChanged()
         })
     }
 
     private fun prepareRecyclerView() {
-        songAdapter =
-            SongAdapter(itemList.value!!, ::onPlayClicked, ::onFavoritesClicked, ::onSeekBarChanged)
+        val adapterList = if (isFavorite) viewModel.favoriteSongsDataHolder else viewModel.allSongsDataHolder
+        songAdapter = SongAdapter(adapterList, ::onPlayClicked, ::onFavoritesClicked, ::onSeekBarChanged)
         binding.recyclerViewSongs.apply {
             viewTreeObserver.addOnPreDrawListener {
                 startPostponedEnterTransition()
@@ -55,19 +55,20 @@ class SongTabFragment(
 
     private fun onPlayClicked(item: SongListWrapper?, button: View?) {
         item?.let {
-            if (item.isPlaying == true) {
-                viewModel.stopAudio(item)
+            if (it.isPlaying == true) {
+                viewModel.stopAudio(it)
             } else {
-                viewModel.playAudio(item, button) { changePlayPauseIcon(item, it) }
+                viewModel.playAudio(it, button) {
+                    changePlayPauseIcon(item, button)
+                }
             }
-            changePlayPauseIcon(item, button)
+            changePlayPauseIcon(it, button)
         }
     }
 
     private fun onFavoritesClicked(item: SongListWrapper?) {
         item?.let {
             viewModel.updateFavorites(it)
-            songAdapter?.notifyDataSetChanged()
         }
     }
 

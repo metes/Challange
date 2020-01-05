@@ -17,7 +17,6 @@ fun View.splashAnimation(functionOnFinish: () -> Unit) {
     }
 }
 
-
 fun View.visibleIf(showing: Boolean) {
     if (showing) {
         startFadeInAnimation(this, 300L)
@@ -31,3 +30,9 @@ fun <E> Collection<E>.toArrayList(): ArrayList<E> {
         addAll(this)
     }
 }
+
+fun <E> ArrayList<E>.replaceData(newList: Collection<E>) {
+    clear()
+    addAll(newList)
+}
+

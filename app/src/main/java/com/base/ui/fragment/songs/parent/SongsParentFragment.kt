@@ -18,8 +18,8 @@ class SongsParentFragment : BaseFragment<FragmentSongParentBinding, SongsVM>() {
 
     private fun initTabs() {
         ViewPagerAdapter(childFragmentManager).apply {
-            addFragment(SongTabFragment(viewModel.favoritesSongsLD), getString(R.string.favoriler))
-            addFragment(SongTabFragment(viewModel.allSongsLD), getString(R.string.kutuphane))
+            addFragment(SongTabFragment(true), getString(R.string.favoriler))
+            addFragment(SongTabFragment(false), getString(R.string.kutuphane))
             binding.viewPagerBlogs.adapter = this
             binding.tabHostSongs.setupWithViewPager(binding.viewPagerBlogs)
         }

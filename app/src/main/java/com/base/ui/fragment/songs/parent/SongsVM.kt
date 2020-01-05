@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.base.base.BaseViewModel
 import com.base.commons.PlayerHelper
 import com.base.commons.SharedPrefHelper
+import com.base.commons.replaceData
 import com.base.model.local.SongListWrapper
 import com.base.model.retrofit.response.songListResponse.SongListResponse
 import com.base.network.APIClient
@@ -18,10 +19,14 @@ class SongsVM(private val app: Application, private val client: APIClient) :
     BaseViewModel(app, client), KoinComponent {
 
     // Her bir ses dosyasi icin map tutulıyor
-    var mediaPlayerMap = SparseArray<PlayerHelper>()
+    private var mediaPlayerMap = SparseArray<PlayerHelper>()
 
-    var allSongsLD: LiveData<ArrayList<SongListWrapper>> = MutableLiveData()
-    var favoritesSongsLD: LiveData<ArrayList<SongListWrapper>> = MutableLiveData()
+    val allSongsDataHolder = ArrayList<SongListWrapper>()
+    val favoriteSongsDataHolder = ArrayList<SongListWrapper>()
+
+    var allSongsLD: LiveData<ArrayList<SongListWrapper>>? = MutableLiveData()
+    var favoritesSongsLD: LiveData<ArrayList<SongListWrapper>>? =  MutableLiveData()
+
 
     // Sonraki oturumlarda hatirlanmasi icin degisiklikler disk'e kaydediliyor
     private val sharedPrefHelper: SharedPrefHelper by inject()
@@ -34,26 +39,26 @@ class SongsVM(private val app: Application, private val client: APIClient) :
         sendRequest(
             { client.songListClient() },
             {
-                generateAllSongLD(it)
+                generateSongListsLD(it)
             }
         )
     }
 
-    private fun generateAllSongLD(songList: List<SongListResponse>?) {
+    private fun generateSongListsLD(songList: List<SongListResponse>?) {
         val savedFavoriteSongs = sharedPrefHelper.loadFavorites()
-        val allSongs = ArrayList<SongListWrapper>()
-        val favoritesSongs = ArrayList<SongListWrapper>()
+        allSongsDataHolder.clear()
+        favoriteSongsDataHolder.clear()
         songList?.forEach { song ->
             val isFavorite =
                 savedFavoriteSongs.firstOrNull { it.songListResponse.id == song.id }?.isFavorite ?: false
             val wrappedSong = SongListWrapper(song, isFavorite)
-            allSongs.add(wrappedSong)
+            allSongsDataHolder.add(wrappedSong)
             if (isFavorite) {
-                favoritesSongs.add(wrappedSong)
+                favoriteSongsDataHolder.add(wrappedSong)
             }
         }
-        (allSongsLD as? MutableLiveData)?.postValue(allSongs)
-        (favoritesSongsLD as? MutableLiveData)?.postValue(favoritesSongs)
+        (allSongsLD as? MutableLiveData)?.postValue(allSongsDataHolder)
+        (favoritesSongsLD as? MutableLiveData)?.postValue(favoriteSongsDataHolder)
     }
 
     fun updateFavorites(item: SongListWrapper) {
@@ -64,11 +69,12 @@ class SongsVM(private val app: Application, private val client: APIClient) :
 
     private fun updateAllSongsList() {
         ArrayList<SongListWrapper>().apply {
-            addAll(allSongsLD.value?: listOf())
-            allSongsLD.value?.forEach { item ->
+            addAll(allSongsLD?.value?: listOf())
+            allSongsLD?.value?.forEach { item ->
                 item.isFavorite = sharedPrefHelper.loadFavorites()
                     .any { it.songListResponse.id == item.songListResponse.id }
             }
+            allSongsDataHolder.replaceData(this)
             (allSongsLD as MutableLiveData).postValue(this)
         }
     }
@@ -86,6 +92,7 @@ class SongsVM(private val app: Application, private val client: APIClient) :
             updatedFavoriteList.add(item)
         }
         sharedPrefHelper.saveFavorites(updatedFavoriteList)
+        favoriteSongsDataHolder.replaceData(updatedFavoriteList)
         (favoritesSongsLD as? MutableLiveData)?.postValue(updatedFavoriteList)
     }
 
