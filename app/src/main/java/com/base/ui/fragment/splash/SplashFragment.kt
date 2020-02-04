@@ -20,7 +20,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashVM>() {
      *  Animasyon bitiminde calistirilacak
      */
     private fun onLogoAnimationEnd() {
-        navigateFragment(R.id.nav_action_splash_to_songs)
+        navigateFragment(R.id.nav_action_splash_to_products)
     }
 
 }

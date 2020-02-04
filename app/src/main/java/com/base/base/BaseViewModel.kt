@@ -3,13 +3,14 @@ package com.base.base
 import android.annotation.SuppressLint
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.base.R
 import com.base.commons.SingleLiveEvent
 import com.base.model.retrofit.response.GenericResponse
-import com.base.network.APIClient
-import com.base.network.Repository.genericRepository
+import com.base.repository.network.APIClient
+import com.base.repository.network.Repository.genericRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -44,7 +45,10 @@ open class BaseViewModel(private val myApp: Application, private val apiClient: 
      *  Tum generic response'lar icin request yollar
      */
     @SuppressLint("LogNotTimber")
-    fun <T : Any> MutableLiveData<T>.sendRequest(client: suspend () -> GenericResponse<T>, function: ((T?) -> Unit)? = null) {
+    fun <T> LiveData<T>.sendRequest(
+        client: suspend () -> GenericResponse<T>,
+        function: ((T?) -> Unit)? = null
+    ) {
         viewModelScope.launch {
             loadingDetection.postValue(true)
             val result = genericRepository(client)
@@ -52,7 +56,7 @@ open class BaseViewModel(private val myApp: Application, private val apiClient: 
                 result.isSuccess -> {
                     val responseData = result.getOrNull()?.data
                     function?.let { it(responseData) }
-                    postValue(responseData)
+                    (this as MutableLiveData<T>).postValue(responseData)
                 }
                 else -> throwError(result.exceptionOrNull()?.message)
             }
@@ -60,7 +64,10 @@ open class BaseViewModel(private val myApp: Application, private val apiClient: 
         }
     }
 
-fun <T>sendRequest(client: suspend () -> GenericResponse<T>, function: ((T?) -> Unit)? = null) {
+    fun <T> sendRequest(
+        client: suspend () -> GenericResponse<T>,
+        function: ((T?) -> Unit)? = null
+    ) {
         viewModelScope.launch {
             loadingDetection.postValue(true)
             val result = genericRepository(client)
@@ -74,7 +81,6 @@ fun <T>sendRequest(client: suspend () -> GenericResponse<T>, function: ((T?) -> 
             loadingDetection.postValue(false)
         }
     }
-
 
 
     /**
@@ -109,10 +115,6 @@ fun <T>sendRequest(client: suspend () -> GenericResponse<T>, function: ((T?) -> 
             emit(genericRepository(it))
         }
     }
-
-
-
-
 
 
 }

@@ -3,7 +3,7 @@ package com.base.commons
 import android.content.Context
 import android.content.SharedPreferences
 import com.base.commons.Constants.favorites
-import com.base.model.local.SongListWrapper
+import com.base.model.wrapper.SongListWrapper
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

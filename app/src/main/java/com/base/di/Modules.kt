@@ -1,8 +1,9 @@
 package com.base.di
 
 import com.base.commons.SharedPrefHelper
-import com.base.network.APIClient
+import com.base.repository.network.APIClient
 import com.base.ui.activity.MainActivityVM
+import com.base.ui.fragment.products.list.ProductsVM
 import com.base.ui.fragment.songs.parent.SongsVM
 import com.base.ui.fragment.splash.SplashVM
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -20,6 +21,9 @@ object Modules {
     }
     val songsViewModelModule = module {
         viewModel { SongsVM(get(), get()) }
+    }
+    val productsViewModelModule = module {
+        viewModel { ProductsVM(get(), get()) }
     }
     val splashViewModelModule = module {
         viewModel { SplashVM(get(), get()) }

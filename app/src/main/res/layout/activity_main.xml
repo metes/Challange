@@ -30,29 +30,14 @@
             app:navGraph="@navigation/nav_graph"
             tools:layout_editor_absoluteX="0dp" />
 
+
         <!-- Custom toolbar, golgenin gorunebilmesi icin asagi alindi-->
-        <androidx.appcompat.widget.Toolbar
+        <com.base.ui.custom.CustomToolbar
             android:id="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:elevation="@dimen/space_small_1"
-            android:minHeight="?attr/actionBarSize"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="?attr/actionBarSize"/>
 
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/toolbar_title"
-                android:textAllCaps="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorWhite_80"
-                android:textStyle="bold" />
-
-
-        </androidx.appcompat.widget.Toolbar>
 
         <FrameLayout
             android:id="@+id/containerProgress"

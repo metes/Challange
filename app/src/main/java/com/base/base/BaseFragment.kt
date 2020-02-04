@@ -128,7 +128,7 @@ abstract class BaseFragment<BindingType : ViewDataBinding, out ViewModelType: Ba
         (activity as MainActivity).toolbarVisibility(visible)
     }
 
-    fun <T>LiveData<T?>.observeThis(function: (T) -> Unit) {
+    fun <T>LiveData<T>.observeThis(function: (T) -> Unit) {
         observe(viewLifecycleOwner, Observer {
             it?.let {
                 function(it)

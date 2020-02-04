@@ -28,6 +28,7 @@ class MyApplication : Application() {
             modules(
                 listOf(
                     Modules.mainActivityViewModelModule,
+                    Modules.productsViewModelModule,
                     Modules.songsViewModelModule,
                     Modules.splashViewModelModule
                 )

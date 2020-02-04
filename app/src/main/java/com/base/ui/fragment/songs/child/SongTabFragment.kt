@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.base.R
 import com.base.base.BaseFragment
 import com.base.databinding.FragmentSongChildBinding
-import com.base.model.local.SongListWrapper
+import com.base.model.wrapper.SongListWrapper
 import com.base.ui.fragment.songs.parent.SongsVM
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 

@@ -1,4 +1,4 @@
-package com.base.network
+package com.base.repository.network
 
 import com.base.BuildConfig
 import com.facebook.stetho.okhttp3.StethoInterceptor

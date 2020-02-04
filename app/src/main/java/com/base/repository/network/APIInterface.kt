@@ -1,4 +1,4 @@
-package com.base.network
+package com.base.repository.network
 
 import com.base.model.retrofit.response.GenericResponse
 import com.base.model.retrofit.response.songListResponse.SongListResponse

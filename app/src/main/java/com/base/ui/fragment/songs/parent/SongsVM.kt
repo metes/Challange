@@ -9,9 +9,9 @@ import com.base.base.BaseViewModel
 import com.base.commons.PlayerHelper
 import com.base.commons.SharedPrefHelper
 import com.base.commons.replaceData
-import com.base.model.local.SongListWrapper
 import com.base.model.retrofit.response.songListResponse.SongListResponse
-import com.base.network.APIClient
+import com.base.model.wrapper.SongListWrapper
+import com.base.repository.network.APIClient
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
