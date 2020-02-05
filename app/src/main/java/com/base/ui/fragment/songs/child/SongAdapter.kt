@@ -14,7 +14,7 @@ open class SongAdapter<T>(
     private val onPlayClick: (T?, View?) -> Unit,
     private val onFavoriteClick: (T?) -> Unit,
     private val onSeekBarChanged: (T?, Int) -> Unit
-) : BaseAdapter<T, ItemSongBinding, SongHolder<T>>(flowItemList) {
+) : BaseAdapter<T, ItemSongBinding, SongHolder<T>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongHolder<T> {
         val binding = ItemSongBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -36,7 +36,7 @@ class SongHolder<T>(
     override fun bind() {
         getRowBinding()?.let {
             it.btnPlay.setOnClickListener { onPlayClick(item, it) }
-            it.btnFavorite.setOnClickListener { onFavoriteClick(item) }
+//            it.btnFavorite.setOnClickListener { onFavoriteClick(item) }
             it.seekBarVolume.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(
                     seekBar: SeekBar?,

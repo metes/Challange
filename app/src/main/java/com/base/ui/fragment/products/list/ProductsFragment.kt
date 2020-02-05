@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.base.R
 import com.base.base.BaseFragment
-import com.base.commons.toArrayList
 import com.base.databinding.FragmentSongChildBinding
 import com.base.model.retrofit.response.songListResponse.SongListResponse
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,20 +14,22 @@ class ProductsFragment : BaseFragment<FragmentSongChildBinding, ProductsVM>() {
     override val layoutId: Int = R.layout.fragment_song_child
     override val viewModel: ProductsVM by viewModel()
 
-    private var songAdapter: ProductAdapter<SongListResponse>? = null
+    private var productAdapter: ProductAdapter<SongListResponse>? = null
 
     override fun prepareViews() {
         prepareRecyclerView()
     }
 
     override fun subscribe() {
-        viewModel.allSongsLD.observeThis {
-            songAdapter?.notifyDataSetChanged()
+        viewModel.allProductsLD.observeThis {
+            binding.swipeRefresh.isRefreshing = false
+            productAdapter?.changeDataWithThis(it)
+            productAdapter?.notifyDataSetChanged()
         }
     }
 
     private fun prepareRecyclerView() {
-        songAdapter = ProductAdapter(viewModel.allSongsLD.value!!.toArrayList(), ::onFavoritesClicked)
+        productAdapter = ProductAdapter(::onFavoritesClicked)
         binding.recyclerViewSongs.apply {
             viewTreeObserver.addOnPreDrawListener {
                 startPostponedEnterTransition()
@@ -36,7 +37,10 @@ class ProductsFragment : BaseFragment<FragmentSongChildBinding, ProductsVM>() {
             }
             layoutManager = LinearLayoutManager(context)
             itemAnimator = DefaultItemAnimator()
-            adapter = songAdapter
+            adapter = productAdapter
+        }
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.fetchSongs()
         }
     }
 

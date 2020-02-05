@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * Base Class for [RecyclerView.Adapter]
  */
-abstract class BaseAdapter<M, DB : ViewDataBinding, VH : BaseHolder<M, DB>>
-constructor(private var data: MutableList<M>?) :
-    RecyclerView.Adapter<VH>() {
+abstract class BaseAdapter<M, DB : ViewDataBinding, VH : BaseHolder<M, DB>>: RecyclerView.Adapter<VH>() {
 
     var itemPosition = -1
+
+    private var data: MutableList<M> = mutableListOf()
 
     override fun onBindViewHolder(@NonNull holder: VH, position: Int) {
         data?.get(position)?.let {

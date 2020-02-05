@@ -8,20 +8,18 @@ import com.base.base.BaseAdapter
 import com.base.base.BaseHolder
 import com.base.databinding.ItemSongBinding
 
-open class ProductAdapter<T>(
-    flowItemList: ArrayList<T>,
-    private val onFavoriteClick: (T?) -> Unit
-) : BaseAdapter<T, ItemSongBinding, ProductHolder<T>>(flowItemList) {
+open class ProductAdapter<T>(private val onPlayClick: (T?) -> Unit) : BaseAdapter<T, ItemSongBinding, ProductHolder<T>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductHolder<T> {
         val binding = ItemSongBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ProductHolder(binding,  onFavoriteClick)
+        return ProductHolder(binding, onPlayClick)
     }
+
 }
 
 class ProductHolder<T>(
     viewDataBinding: ItemSongBinding,
-    private val onFavoriteClick: (T?) -> Unit
+    private val onPlayClick: (T?) -> Unit
 ) : BaseHolder<T, ItemSongBinding>(viewDataBinding) {
 
     override fun bindingVariable(): Int {
@@ -30,7 +28,7 @@ class ProductHolder<T>(
 
     override fun bind() {
         getRowBinding()?.let {
-            it.btnFavorite.setOnClickListener { onFavoriteClick(item) }
+            it.btnPlay.setOnClickListener { onPlayClick(item) }
         }
     }
 }

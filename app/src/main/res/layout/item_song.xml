@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.base.model.wrapper.SongListWrapper" />
+            type="com.base.model.retrofit.response.songListResponse.SongListResponse" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -24,7 +24,7 @@
                 <TextView
                     android:id="@+id/txtTitle"
                     style="@style/TextView.Base.Large"
-                    android:text="@{item.songListResponse.name}"
+                    android:text="@{item.name}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Canary Song" />
@@ -32,7 +32,7 @@
                 <TextView
                     android:id="@+id/txtCategory"
                     style="@style/TextView.Base"
-                    android:text="@{item.songListResponse.category}"
+                    android:text="@{item.category}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txtTitle"
                     tools:text="Canary Song" />
@@ -45,20 +45,20 @@
                     android:layout_marginEnd="@dimen/space_large"
                     android:progress="100"
                     android:max="100"
-                    app:layout_constraintEnd_toStartOf="@+id/btnFavorite"
+                    app:layout_constraintEnd_toStartOf="@+id/btnPlay"
                     app:layout_constraintHorizontal_weight="1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtCategory" />
 
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btnFavorite"
-                    style="@style/ImageButton.Item"
-                    android:padding="4dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/seekBarVolume"
-                    app:layout_constraintEnd_toStartOf="@+id/btnPlay"
-                    android:src="@{item.isFavorite() ? @drawable/ic_favorite_red_24dp :@drawable/ic_favorite_border_black_24dp}"
-                    />
+<!--                <androidx.appcompat.widget.AppCompatImageButton-->
+<!--                    android:id="@+id/btnFavorite"-->
+<!--                    style="@style/ImageButton.Item"-->
+<!--                    android:padding="4dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/seekBarVolume"-->
+<!--                    app:layout_constraintEnd_toStartOf="@+id/btnPlay"-->
+<!--                    android:src="@{item.isFavorite() ? @drawable/ic_favorite_red_24dp :@drawable/ic_favorite_border_black_24dp}"-->
+<!--                    />-->
 <!--                app:srcCompat="@drawable/ic_favorite_border_black_24dp"-->
 <!--                app:srcCompat="@{item.isFavorite() == true ? @drawable/ic_favorite_red_24dp : @drawable/ic_favorite_border_black_24dp}"-->
 
