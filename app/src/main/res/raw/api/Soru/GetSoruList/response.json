@@ -1,0 +1,181 @@
+{
+
+  "ResultObject": [
+
+    {
+
+      "SoruId": "448DFE8C-A499-4988-857E-0AF4C7CA7267",
+
+     "FormId": 1,
+
+      "FormAdi": "Teknisyen Formu",
+
+      "SoruTipiId": 1,
+
+      "SoruTipiAdi": "Combobox",
+
+      "SoruMetni": "Hangi ildesin ?",
+
+      "Anasoru": false,
+
+      "SiraNo": 1,
+
+      "SoruSecenek": [
+
+        {
+
+          "SoruId": "448DFE8C-A499-4988-857E-0AF4C7CA7267",
+
+          "BagliSoruId": "A69FF6B9-48FF-48FC-BFB9-F84CCA875E43",
+
+          "SecenekMetni": "Kütahya"
+
+        },
+
+        {
+
+          "SoruId": "448DFE8C-A499-4988-857E-0AF4C7CA7267",
+
+          "BagliSoruId": null,
+
+          "SecenekMetni": "İstanbul"
+
+        }
+
+      ]
+
+    },
+
+    {
+
+      "SoruId": "A69FF6B9-48FF-48FC-BFB9-F84CCA875E43",
+
+      "FormId": 1,
+
+      "FormAdi": "Teknisyen Formu",
+
+      "SoruTipiId": 2,
+
+      "SoruTipiAdi": "Radio",
+
+      "SoruMetni": "Hangi ilçedesin ?",
+
+      "Anasoru": false,
+
+      "SiraNo": 2,
+
+      "SoruSecenek": [
+
+        {
+
+          "SoruId": "A69FF6B9-48FF-48FC-BFB9-F84CCA875E43",
+
+          "BagliSoruId": null,
+
+          "SecenekMetni": "Merkez"
+
+        },
+
+        {
+
+          "SoruId": "A69FF6B9-48FF-48FC-BFB9-F84CCA875E43",
+
+          "BagliSoruId": null,
+
+          "SecenekMetni": "Gediz"
+
+        }
+
+      ]
+
+    },
+
+    {
+
+      "SoruId": "44EE8AD1-F5B0-4395-8ED3-243CA1762770",
+
+      "FormId": 1,
+
+      "FormAdi": "Teknisyen Formu",
+
+      "SoruTipiId": 1,
+
+      "SoruTipiAdi": "Combobox",
+
+      "SoruMetni": "Arıza Var mı ?",
+
+      "Anasoru": false,
+
+      "SiraNo": 3,
+
+      "SoruSecenek": [
+
+        {
+
+          "SoruId": "44EE8AD1-F5B0-4395-8ED3-243CA1762770",
+
+          "BagliSoruId": null,
+
+          "SecenekMetni": "Evet"
+
+        },
+
+        {
+
+          "SoruId": "44EE8AD1-F5B0-4395-8ED3-243CA1762770",
+
+          "BagliSoruId": null,
+
+          "SecenekMetni": "Hayır"
+
+        }
+
+      ]
+
+    },
+
+    {
+
+      "SoruId": "B6437084-79B9-499F-880C-00EEA18074A3",
+
+      "FormId": 1,
+
+      "FormAdi": "Teknisyen Formu",
+
+      "SoruTipiId": 5,
+
+      "SoruTipiAdi": "Textarea",
+
+      "SoruMetni": "Notunuz",
+
+      "Anasoru": false,
+
+      "SiraNo": 4,
+
+      "SoruSecenek": [
+
+        {
+
+          "SoruId": "B6437084-79B9-499F-880C-00EEA18074A3",
+
+          "BagliSoruId": null,
+
+          "SecenekMetni": "Notunuzu yazınız"
+
+        }
+
+      ]
+
+    }
+
+  ],
+
+  "ResultMessage": "OK",
+
+  "ResultStatus": true,
+
+  "ResultCode": 200,
+
+  "ResultTrackingCode": "80af5573-5310-4c5c-a68b-7c83d3b2ab72"
+
+}
